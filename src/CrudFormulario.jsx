@@ -19,7 +19,7 @@ const agregarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS
 
       console.log('Elemento vacio')
 
-      return 
+      return    
     }
           
     console.log(tarea)
