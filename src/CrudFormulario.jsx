@@ -12,14 +12,14 @@ const [tarea,setTarea] = React.useState('');
 const [tareas,setDatos]=React.useState([]);
 const [modeoEdicion,setModoEdicion]= React.useState(false);  // POR DEFECTO ESTA EL FORMULARIO DE AGREGAR
 
-const agregarTarea=(e)=>{
+const agregarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS 
     e.preventDefault()
     
     if(!tarea.trim()){
 
       console.log('Elemento vacio')
 
-      return
+      return 
     }
           
     console.log(tarea)
