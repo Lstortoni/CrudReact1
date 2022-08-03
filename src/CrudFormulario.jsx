@@ -11,18 +11,21 @@ const CrudFormulario = () => {
 const [tarea,setTarea] = React.useState('');
 const [tareas,setDatos]=React.useState([]);
 const [modeoEdicion,setModoEdicion]= React.useState(false);  // POR DEFECTO ESTA EL FORMULARIO DE AGREGAR
+const[idTarea,setIdTarea]= React.useState('');
+const [mensaje,SetMensaje]= React.useState(null);
 
+//***************************************AGREGA UNA TAREA CON LA UNION DE ARREGLOS******************************** */
 const agregarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS 
     e.preventDefault()
     
     if(!tarea.trim()){
 
       console.log('Elemento vacio')
-
+      SetMensaje('No se ha escrito niguna tarea...')
       return    
     }
           
-    console.log(tarea)
+    //console.log(tarea)
 
     setDatos([...tareas,{id:nanoid(10),nombretarea:tarea}]) 
     // GENERO UN OBJETO PARA PODER TENER EL ID Y EL NOMBRE DE LA TAREA
@@ -30,8 +33,36 @@ const agregarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS
     //LOS ID TIENEN QUE VENIR DE LA BASE DE DATOS.
 
     setTarea('')
+    SetMensaje(null)
     }
 
+//***************************************EDITA UNA TAREA************************************************************** */
+const editarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS 
+  e.preventDefault()
+  
+  if(!tarea.trim()){
+
+    console.log('Elemento vacio')
+
+     SetMensaje('No se ha escrito niguna tarea...')
+    return    
+  }
+        
+    
+  
+   let id = idTarea
+
+   const  arrayEditado = tareas.map(item=> item.id===id ? {id:id, nombretarea:tarea} : item)
+
+   setDatos(arrayEditado)
+   setTarea('')
+   setIdTarea('')
+   setModoEdicion(false)
+   SetMensaje(null)
+ 
+
+  }
+//********************************************ELIMINAR TAREA************************************ */
   const Eliminar= (id)=>{
    // console.log(id)
 
@@ -40,20 +71,20 @@ const agregarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS
 
    setDatos(arrayFiltrado) 
   }
-
+ 
+  //***************************************PONE EL FORMULARIO EN MODO EDICION****************************** */
   const Editar= (id,tareaEditada)=>{
 
 
     setModoEdicion(true) 
-  // let arrayFiltrado = [];
-  // arrayFiltrado= tareas.filter(item=> item.id!==id)
-
-  // setDatos(arrayFiltrado) 
+ 
     setTarea(tareaEditada)
  
+    
+    setIdTarea(id)
 
    }
-
+//****************************************************************************************************************************** */
     return (
     <div className="container mt-5">
         <h1 className="text-center">CRUD simple</h1>
@@ -63,19 +94,28 @@ const agregarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS
                 <h4 className="text-center">Lista de tareas</h4>
                 <ul className="list-group">
                 {
+               
+                tareas.length===0 ?(
+                  <li className="list-group-item" >No hay tareas</li>
+
+                ):(
+
+                     
                 tareas.map( (item, index) => (
 
-                   <li className="list-group-item" key={item.id}>
+                  <li className="list-group-item" key={item.id}>
 
-                                
-                                <span  className="lead">{item.nombretarea}</span>
-                                <button className="btn btn-danger  btn-sm float-right mx-2" onClick={()=>Eliminar(item.id)}>Eliminar</button>
-                                <button className="btn btn-warning  btn-sm float-right" onClick={()=>Editar(item.id,item.nombretarea)}>Editar</button>
-                        
+                               
+                               <span  className="lead">{item.nombretarea}</span>
+                               <button className="btn btn-danger  btn-sm float-right mx-2" onClick={()=>Eliminar(item.id)}>Eliminar</button>
+                               <button className="btn btn-warning  btn-sm float-right" onClick={()=>Editar(item.id,item.nombretarea)}>Editar</button>
+                       
 
-                    </li>
+                   </li>
 
-                   ))
+                  ))
+                )
+
                  }
                 </ul>
             </div>
@@ -90,7 +130,14 @@ const agregarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS
                 
                 
                 </h4>
-                <form onSubmit={(e)=>agregarTarea(e)}>
+                
+                <form onSubmit={(e)=> modeoEdicion? editarTarea(e):agregarTarea(e)}>
+                 
+                 {
+                   mensaje!=null?(<span  className="text-danger">{mensaje}</span>):null
+
+                 }
+                   
                 <input 
                 type="text"
                     className="form-control mb-2"
