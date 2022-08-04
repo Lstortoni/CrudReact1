@@ -17,6 +17,14 @@ import Nosotros from "./components/Nosotros";
 import Inicio from "./components/Inicio";
 
 function App() {
+  const navLinkStyles = ({ isActive }) => {
+    return {
+      fontWeight: isActive ? "bold" : "normal",
+      textDecoration: isActive ? "none" : "underline"
+    };
+  };
+
+
   return (
     <Router>
       <div className="container mt-5">
@@ -24,6 +32,17 @@ function App() {
         {/**
        <ComponenteComentariosYProps/>
         */ }
+        <div className="container">
+            <NavLink className="btn btn-dark" to="/" style={navLinkStyles} >
+                Inicio
+            </NavLink>
+            <NavLink className="btn btn-dark" to="/contacto" style={navLinkStyles} >
+                Contacto
+            </NavLink>
+            <NavLink className="btn btn-dark" to="/nosotros"  style={navLinkStyles} >
+                Nosotros
+            </NavLink>
+        </div>
       <Routes>
        
         <Route path="/" element={<Inicio/>} />
