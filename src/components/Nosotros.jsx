@@ -7,7 +7,7 @@ const Nosotros = () => {
         Nosotros
         </h1>
         
-        
+         
     </div>
   )
 }
