@@ -18,11 +18,11 @@ const Nosotros = () => {
     //console.log(users)
     setEquipo(users)
  }
-
+ 
   return (
     <div>
         <h1>
-        Nosotros
+        Nosotros 
         </h1>
         
         
