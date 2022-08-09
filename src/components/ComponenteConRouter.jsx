@@ -9,6 +9,7 @@ import {
   import Contacto from "./Contacto";
   import Nosotros from "./Nosotros";
   import Inicio from "./Inicio";
+import User from './User';
 const ComponenteConRouter = () => {
 
 
@@ -34,18 +35,20 @@ const ComponenteConRouter = () => {
           <NavLink className="btn btn-dark" to="/contacto" style={navLinkStyles} >
               Contacto
           </NavLink>
-          <Link className="btn btn-dark" to="/nosotros"  >
+          <NavLink className="btn btn-dark" to="/nosotros"  >
               Nosotros
-          </Link>
+          </NavLink>
       </div>
     <Routes>
      
-      <Route path="/" element={<Inicio/>} />
-       
+       <Route path="/" element={<Inicio/>} />
+      
+      <Route path="/nosotros/:id"  element={<User/>} />
      
       <Route path="/contacto" element={<Contacto/>} />
 
       <Route path="/nosotros" element={<Nosotros/>} />
+
 
     </Routes>
   </div>
