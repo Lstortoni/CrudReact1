@@ -114,7 +114,7 @@ const editarTarea=(e)=>{  //PERMITE AGRREGAR NUEVAS TAREAS
                    </li>
 
                   ))
-                )
+                ) 
 
                  }
                 </ul>
